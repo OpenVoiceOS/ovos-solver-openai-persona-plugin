@@ -29,9 +29,9 @@ with open("./version.py", "r", encoding="utf-8") as v:
                 version = line.split("'")[1]
 
 
-PLUGIN_ENTRY_POINT = 'ovos-solver-failure-plugin=ovos_solver_chatgpt_plugin:ChatGPTSolver'
+PLUGIN_ENTRY_POINT = 'ovos-solver-chatgpt-plugin=ovos_solver_chatgpt_plugin:ChatGPTSolver'
 setup(
-    name='ovos-solver-failure-plugin',
+    name='ovos-solver-chatgpt-plugin',
     version=version,
     description='A question solver plugin for ovos/neon/mycroft',
     url='https://github.com/OpenVoiceOS/ovos-solver-plugin-chatgpt',
