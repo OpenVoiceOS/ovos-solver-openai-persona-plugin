@@ -16,7 +16,7 @@ class ChatGPTSolver(AbstractSolver):
         # this is a leaked gpt model that is free to use, unmoderated free and slow
         self.engine = "text-chat-davinci-002-20221122"  # "ada" cheaper and faster, "davinci" better
         self.stop_token = "<|im_end|>"
-        self.key = self.config.get("key") or "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"
+        self.key = self.config.get("key")
         ai.api_key = self.key
         self.chatgpt = ai.Completion()
         self.memory = True  # todo config
@@ -25,21 +25,20 @@ class ChatGPTSolver(AbstractSolver):
         self.current_q = None
         self.current_a = None
 
-    @property
-    def initial_prompt(self):
-        start_chat_log = """The assistant is helpful, creative, clever, and very friendly."""
-        s = self.config.get("initial_prompt", start_chat_log)
-        return f"The following is a conversation with an AI assistant. The assistant understands all languages. The assistant gives short and factual answers. {s}"
-
-    @property
-    def chat_history(self):
+    def get_chat_history(self, persona=None):
         # TODO - intro question from skill settings
         intro_q = ("Hello, who are you?", "I am an AI created by OpenAI. How can I help you today?")
         if len(self.qa_pairs) > self.max_utts:
             qa = [intro_q] + self.qa_pairs[-1*self.max_utts:]
         else:
             qa = [intro_q] + self.qa_pairs
-        chat = self.initial_prompt.strip() + "\n\n"
+
+        persona = persona or self.config.get("persona") or "helpful, creative, clever, and very friendly."
+        initial_prompt = f"The following is a conversation with an AI assistant. " \
+                         f"The assistant understands all languages. " \
+                         f"The assistant gives short and factual answers. " \
+                         f"The assistant is {persona}"
+        chat = initial_prompt.strip() + "\n\n"
         if qa:
             qa = "\n".join([f"Human: {q}\nAI: {a}" for q, a in qa])
             if chat.endswith("\nHuman: "):
@@ -49,10 +48,10 @@ class ChatGPTSolver(AbstractSolver):
             chat += qa
         return chat
 
-    def get_prompt(self, utt):
+    def get_prompt(self, utt, persona=None):
         self.current_q = None
         self.current_a = None
-        prompt = self.chat_history
+        prompt = self.get_chat_history(persona)
         if not prompt.endswith("\nHuman: "):
             prompt += f"\nHuman: {utt}?\nAI: "
         else:
@@ -61,7 +60,9 @@ class ChatGPTSolver(AbstractSolver):
 
     # officially exported Solver methods
     def get_spoken_answer(self, query, context=None):
-        prompt = self.get_prompt(query)
+        context = context or {}
+        persona = context.get("persona")
+        prompt = self.get_prompt(query, persona)
         # TODO - params from config
         response = self.chatgpt.create(prompt=prompt, engine=self.engine, temperature=0.85,
                                        top_p=1, frequency_penalty=0,
