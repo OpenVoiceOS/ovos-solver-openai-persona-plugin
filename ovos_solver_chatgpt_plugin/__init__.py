@@ -10,12 +10,13 @@ import openai as ai
 
 
 class ChatGPTSolver(AbstractSolver):
-    def __init__(self):
-        super().__init__(name="ChatGPT", priority=25, enable_cache=False, enable_tx=False)
+    def __init__(self, config=None):
+        super().__init__(name="ChatGPT", priority=25, config=config,
+                         enable_cache=False, enable_tx=False)
         # this is a leaked gpt model that is free to use, unmoderated free and slow
         self.engine = "text-chat-davinci-002-20221122"  # "ada" cheaper and faster, "davinci" better
         self.stop_token = "<|im_end|>"
-        self.key = self.config.get("key")
+        self.key = self.config.get("key") or "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"
         ai.api_key = self.key
         self.chatgpt = ai.Completion()
         self.memory = True  # todo config
