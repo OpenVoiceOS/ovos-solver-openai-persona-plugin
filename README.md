@@ -1,6 +1,6 @@
-# <img src='https://raw.githack.com/FortAwesome/Font-Awesome/master/svgs/solid/robot.svg' card_color='#40DBB0' width='50' height='50' style='vertical-align:bottom'/> ChatGPT
+# <img src='https://raw.githack.com/FortAwesome/Font-Awesome/master/svgs/solid/robot.svg' card_color='#40DBB0' width='50' height='50' style='vertical-align:bottom'/> Persona
  
-Give Mycroft some sass with ChatGPT!
+Give Mycroft some sass with OpenAI!
 
 Leverages [OpenAI Completions API](https://platform.openai.com/docs/api-reference/completions/create) to create some fun interactions.  Phrases not explicitly handled by other skills will be run by the ChatGPT, so nearly every interaction will have _some_ response.  But be warned, Mycroft might become a bit obnoxious...
 
@@ -20,3 +20,9 @@ print(bot.spoken_answer("Quem encontrou o caminho maritimo para o Brazil", {"lan
 # Explorador português Pedro Álvares Cabral é creditado com a descoberta do Brasil em 1500
 
 ```
+
+## Inspiration
+
+MycroftAI wanted to start an initiative called ‘Persona’ - a tool to help build distinct personalities for Mycroft. Think Sassy Mycroft, Polite Mycroft and so on.
+
+the technology just wasn't there yet and the [backend implementation](https://mycroft.ai/blog/mycrofts-goals-for-19-08/#back-end-persona) was never finished or made public but the beta skill is still available (non-functional) https://github.com/MycroftAI/skill-fallback-persona
