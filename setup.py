@@ -29,16 +29,16 @@ with open("./version.py", "r", encoding="utf-8") as v:
                 version = line.split("'")[1]
 
 # TODO - expose all solvers as entrypoints (?)
-PLUGIN_ENTRY_POINT = 'ovos-solver-chatgpt-plugin=ovos_solver_chatgpt_plugin:OpenAICompletionsSolver'
+PLUGIN_ENTRY_POINT = 'ovos-solver-openai-persona-plugin=ovos_solver_openai_persona_plugin:OpenAIPersonaSolver'
 setup(
-    name='ovos-solver-chatgpt-plugin',
+    name='ovos-solver-openai-persona-plugin',
     version=version,
     description='A question solver plugin for ovos/neon/mycroft',
-    url='https://github.com/OpenVoiceOS/ovos-solver-plugin-chatgpt',
+    url='https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona',
     author='jarbasai',
     author_email='jarbasai@mailfence.com',
     license='MIT',
-    packages=['ovos_solver_chatgpt_plugin'],
+    packages=['ovos_solver_openai_persona_plugin'],
     zip_safe=True,
     keywords='mycroft plugin utterance fallback query',
     entry_points={'neon.plugin.solver': PLUGIN_ENTRY_POINT},
