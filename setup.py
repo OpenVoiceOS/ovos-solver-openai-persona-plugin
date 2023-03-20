@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+
 from setuptools import setup
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
@@ -20,27 +21,44 @@ with open("README.md", "r") as f:
     long_description = f.read()
 
 
-with open("./version.py", "r", encoding="utf-8") as v:
-    for line in v.readlines():
-        if line.startswith("__version__"):
-            if '"' in line:
-                version = line.split('"')[1]
-            else:
-                version = line.split("'")[1]
+def get_version():
+    """ Find the version of the package"""
+    version = None
+    version_file = os.path.join(BASEDIR, 'ovos_solver_openai_persona', 'version.py')
+    major, minor, build, alpha = (None, None, None, None)
+    with open(version_file) as f:
+        for line in f:
+            if 'VERSION_MAJOR' in line:
+                major = line.split('=')[1].strip()
+            elif 'VERSION_MINOR' in line:
+                minor = line.split('=')[1].strip()
+            elif 'VERSION_BUILD' in line:
+                build = line.split('=')[1].strip()
+            elif 'VERSION_ALPHA' in line:
+                alpha = line.split('=')[1].strip()
 
-# TODO - expose all solvers as entrypoints (?)
-PLUGIN_ENTRY_POINT = 'ovos-solver-openai-persona-plugin=ovos_solver_openai_persona_plugin:OpenAIPersonaSolver'
+            if ((major and minor and build and alpha) or
+                    '# END_VERSION_BLOCK' in line):
+                break
+    version = f"{major}.{minor}.{build}"
+    if alpha and int(alpha) > 0:
+        version += f"a{alpha}"
+    return version
+
+
+PLUGIN_ENTRY_POINT = 'ovos-solver-openai-persona-plugin=ovos_solver_openai_persona:OpenAIPersonaSolver'
+
 setup(
     name='ovos-solver-openai-persona-plugin',
-    version=version,
-    description='A question solver plugin for ovos/neon/mycroft',
+    version=get_version(),
+    description='A question solver plugin for ovos',
     url='https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona',
     author='jarbasai',
     author_email='jarbasai@mailfence.com',
     license='MIT',
-    packages=['ovos_solver_openai_persona_plugin'],
+    packages=['ovos_solver_openai_persona'],
     zip_safe=True,
-    keywords='mycroft plugin utterance fallback query',
+    keywords='ovos plugin utterance fallback query',
     entry_points={'neon.plugin.solver': PLUGIN_ENTRY_POINT},
     install_requires=required("requirements.txt"),
     long_description=long_description,

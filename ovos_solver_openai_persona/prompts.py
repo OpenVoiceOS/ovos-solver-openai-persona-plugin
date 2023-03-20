@@ -1,4 +1,4 @@
-from ovos_solver_openai_persona_plugin.engines import OpenAICompletionsSolver
+from ovos_solver_openai_persona.engines import OpenAICompletionsSolver
 
 
 # Voice Assistant Promp Engineering

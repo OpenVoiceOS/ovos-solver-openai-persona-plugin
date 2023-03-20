@@ -1,4 +1,4 @@
-from ovos_solver_openai_persona_plugin.engines import OpenAIChatCompletionsSolver
+from ovos_solver_openai_persona.engines import OpenAIChatCompletionsSolver
 
 
 class OpenAIPersonaSolver(OpenAIChatCompletionsSolver):
@@ -13,7 +13,6 @@ class OpenAIPersonaSolver(OpenAIChatCompletionsSolver):
         qa = self.qa_pairs[-1 * self.max_utts:]
         persona = persona or self.default_persona
         initial_prompt = f"You are a helpful assistant. " \
-                         f"You understand all languages. " \
                          f"You give short and factual answers. " \
                          f"You are {persona}"
         messages = [
