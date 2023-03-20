@@ -28,8 +28,8 @@ with open("./version.py", "r", encoding="utf-8") as v:
             else:
                 version = line.split("'")[1]
 
-
-PLUGIN_ENTRY_POINT = 'ovos-solver-chatgpt-plugin=ovos_solver_chatgpt_plugin:ChatGPTSolver'
+# TODO - expose all solvers as entrypoints (?)
+PLUGIN_ENTRY_POINT = 'ovos-solver-chatgpt-plugin=ovos_solver_chatgpt_plugin:OpenAICompletionsSolver'
 setup(
     name='ovos-solver-chatgpt-plugin',
     version=version,

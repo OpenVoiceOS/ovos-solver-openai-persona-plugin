@@ -2,18 +2,17 @@ import json
 
 import requests
 from neon_solvers import AbstractSolver
-from ovos_utils.log import LOG
 
 
-class ChatGPTSolver(AbstractSolver):
+class OpenAICompletionsSolver(AbstractSolver):
     api_url = "https://api.openai.com/v1/completions"
 
-    def __init__(self, config=None):
-        super().__init__(name="ChatGPT", priority=25, config=config,
+    def __init__(self, config=None, name="OpenAI"):
+        super().__init__(name=name, priority=25, config=config,
                          enable_cache=False, enable_tx=False)
-        self.engine = "text-davinci-003"  # "ada" cheaper and faster, "davinci" better
+        self.engine = self.config.get("model", "davinci")  # "ada" cheaper and faster, "davinci" better
         self.stop_token = "<|im_end|>"
-        self.key = self.config.get("key") or "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"
+        self.key = self.config.get("key")  # TODO - raise error if missing
         self.memory = True  # todo config
         self.max_utts = 15  # memory size TODO config
         self.qa_pairs = []  # tuple of q+a
@@ -79,6 +78,7 @@ class ChatGPTSolver(AbstractSolver):
             "stop": self.stop_token
         }
         response = requests.post(self.api_url, headers=headers, data=json.dumps(payload)).json()
+        print(response)
         return response["choices"][0]["text"]
 
     def get_spoken_answer(self, query, context=None):
@@ -94,8 +94,36 @@ class ChatGPTSolver(AbstractSolver):
         return answer
 
 
+class AdaSolver(OpenAICompletionsSolver):
+    def __init__(self, config=None):
+        config = config or {}
+        config["model"] = "ada"
+        super().__init__(name="Ada", config=config)
+
+
+class BabbageSolver(OpenAICompletionsSolver):
+    def __init__(self, config=None):
+        config = config or {}
+        config["model"] = "babbage"
+        super().__init__(name="Babbage", config=config)
+
+
+class CurieSolver(OpenAICompletionsSolver):
+    def __init__(self, config=None):
+        config = config or {}
+        config["model"] = "curie"
+        super().__init__(name="Curie", config=config)
+
+
+class DavinciSolver(OpenAICompletionsSolver):
+    def __init__(self, config=None):
+        config = config or {}
+        config["model"] = "davinci"
+        super().__init__(name="Davinci", config=config)
+
+
 if __name__ == "__main__":
-    bot = ChatGPTSolver()
+    bot = OpenAICompletionsSolver({"key": "sk-xxxx"})
     print(bot.get_spoken_answer("describe quantum mechanics in simple terms"))
     # Quantum mechanics is a branch of physics that deals with the behavior of particles on a very small scale, such as atoms and subatomic particles. It explores the idea that particles can exist in multiple states at once and that their behavior is not predictable in the traditional sense.
     print(bot.spoken_answer("Quem encontrou o caminho maritimo para o Brazil", {"lang": "pt-pt"}))
