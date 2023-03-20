@@ -2,7 +2,7 @@
  
 Give Mycroft some sass with OpenAI!
 
-Leverages [OpenAI Completions API](https://platform.openai.com/docs/api-reference/completions/create) to create some fun interactions.  Phrases not explicitly handled by other skills will be run by the ChatGPT, so nearly every interaction will have _some_ response.  But be warned, Mycroft might become a bit obnoxious...
+Leverages [OpenAI Completions API](https://platform.openai.com/docs/api-reference/completions/create) to create some fun interactions.  Phrases not explicitly handled by other skills will be run by a LLM, so nearly every interaction will have _some_ response.  But be warned, Mycroft might become a bit obnoxious...
 
 
 ## Usage
