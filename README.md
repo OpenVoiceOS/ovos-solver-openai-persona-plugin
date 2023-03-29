@@ -20,9 +20,3 @@ print(bot.spoken_answer("Quem encontrou o caminho maritimo para o Brazil", {"lan
 # Explorador português Pedro Álvares Cabral é creditado com a descoberta do Brasil em 1500
 
 ```
-
-## Inspiration
-
-MycroftAI wanted to start an initiative called ‘Persona’ - a tool to help build distinct personalities for Mycroft. Think Sassy Mycroft, Polite Mycroft and so on.
-
-the technology just wasn't there yet and the [backend implementation](https://mycroft.ai/blog/mycrofts-goals-for-19-08/#back-end-persona) was never finished or made public but the beta skill is still available (non-functional) https://github.com/MycroftAI/skill-fallback-persona
