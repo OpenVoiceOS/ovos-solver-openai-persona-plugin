@@ -1,2 +1,2 @@
 requests
-neon_solvers
+ovos-plugin-manager>=0.0.23a9
