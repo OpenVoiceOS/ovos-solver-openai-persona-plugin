@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/HEAD)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a3...HEAD)
+
+**Implemented enhancements:**
+
+- Feat/config url [\#1](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/pull/1) ([builderjer](https://github.com/builderjer))
+
+## [V0.0.0a3](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/V0.0.0a3) (2023-04-13)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a2...V0.0.0a3)
+
 ## [V0.0.0a2](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/V0.0.0a2) (2023-04-13)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a1...V0.0.0a2)
