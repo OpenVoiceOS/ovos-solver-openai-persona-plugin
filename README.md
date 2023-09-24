@@ -21,6 +21,8 @@ print(bot.spoken_answer("Quem encontrou o caminho maritimo para o Brazil", {"lan
 
 ```
 
+This plugin will work with [ovos-persona-server](https://github.com/OpenVoiceOS/ovos-persona-server)
+
 ## Configuration
 
 This plugin can be configured to use a LocalAI server instead of OpenAI.

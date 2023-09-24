@@ -6,7 +6,6 @@ from ovos_utils.log import LOG
 
 
 class OpenAICompletionsSolver(AbstractSolver):
-    api_url = "https://api.openai.com/v1/completions"
 
     def __init__(self, config=None, name="OpenAI"):
         super().__init__(name=name, priority=25, config=config,
@@ -18,7 +17,7 @@ class OpenAICompletionsSolver(AbstractSolver):
             LOG.error("key not set in config")
             raise ValueError("key must be set")
         else:
-            self.key = key  # TODO - raise error if missing
+            self.key = key
 
     # OpenAI API integration
     def _do_api_request(self, prompt):
@@ -57,7 +56,6 @@ class OpenAICompletionsSolver(AbstractSolver):
 
 
 class OpenAIChatCompletionsSolver(AbstractSolver):
-    api_url = "https://api.openai.com/v1/chat/completions"
 
     def __init__(self, config=None, name="OpenAI Chat"):
         super().__init__(name=name, priority=25, config=config,
@@ -70,7 +68,7 @@ class OpenAIChatCompletionsSolver(AbstractSolver):
             LOG.error("key not set in config")
             raise ValueError("key must be set")
         else:
-            self.key = key  # TODO - raise error if missing
+            self.key = key
         self.memory = config.get("enable_memory", True)
         self.max_utts = config.get("memory_size", 15)
         self.qa_pairs = []  # tuple of q+a
