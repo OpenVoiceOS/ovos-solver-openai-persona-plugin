@@ -2,6 +2,7 @@ import json
 
 import requests
 from ovos_plugin_manager.templates.solvers import AbstractSolver
+from ovos_utils.log import LOG
 
 
 class OpenAICompletionsSolver(AbstractSolver):
@@ -10,10 +11,14 @@ class OpenAICompletionsSolver(AbstractSolver):
     def __init__(self, config=None, name="OpenAI"):
         super().__init__(name=name, priority=25, config=config,
                          enable_cache=False, enable_tx=False)
-        self.api_url = self.config.get("api_url", "https://api.openai.com/v1/completions")
+        self.api_url = f"{self.config.get('api_url', 'https://api.openai.com/v1')}/completions"
         self.engine = self.config.get("model", "text-davinci-002")  # "ada" cheaper and faster, "davinci" better
         self.stop_token = "<|im_end|>"
-        self.key = self.config.get("key")  # TODO - raise error if missing
+        if not key:
+            LOG.error("key not set in config")
+            raise ValueError("key must be set")
+        else:
+            self.key = key  # TODO - raise error if missing
 
     # OpenAI API integration
     def _do_api_request(self, prompt):
@@ -57,16 +62,21 @@ class OpenAIChatCompletionsSolver(AbstractSolver):
     def __init__(self, config=None, name="OpenAI Chat"):
         super().__init__(name=name, priority=25, config=config,
                          enable_cache=False, enable_tx=False)
-        self.api_url = self.config.get("api_url", "https://api.openai.com/v1/chat/completions")
+        self.api_url = f"{self.config.get('api_url', 'https://api.openai.com/v1')}/chat/completions"
         self.engine = self.config.get("model", "gpt-3.5-turbo")  # "ada" cheaper and faster, "davinci" better
         self.stop_token = "<|im_end|>"
-        self.key = self.config.get("key")  # TODO - raise error if missing
+        key = self.config.get("key")
+        if not key:
+            LOG.error("key not set in config")
+            raise ValueError("key must be set")
+        else:
+            self.key = key  # TODO - raise error if missing
         self.memory = config.get("enable_memory", True)
         self.max_utts = config.get("memory_size", 15)
         self.qa_pairs = []  # tuple of q+a
         self.current_q = None
         self.current_a = None
-        self.initial_prompt = config.get("initial_prompt") or "You are a helpful assistant."
+        self.initial_prompt = config.get("initial_prompt", "You are a helpful assistant.")
 
     # OpenAI API integration
     def _do_api_request(self, messages):
