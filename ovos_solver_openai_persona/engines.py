@@ -10,6 +10,7 @@ class OpenAICompletionsSolver(AbstractSolver):
     def __init__(self, config=None, name="OpenAI"):
         super().__init__(name=name, priority=25, config=config,
                          enable_cache=False, enable_tx=False)
+        self.api_url = self.config.get("api_url", "https://api.openai.com/v1/completions")
         self.engine = self.config.get("model", "text-davinci-002")  # "ada" cheaper and faster, "davinci" better
         self.stop_token = "<|im_end|>"
         self.key = self.config.get("key")  # TODO - raise error if missing
@@ -56,6 +57,7 @@ class OpenAIChatCompletionsSolver(AbstractSolver):
     def __init__(self, config=None, name="OpenAI Chat"):
         super().__init__(name=name, priority=25, config=config,
                          enable_cache=False, enable_tx=False)
+        self.api_url = self.config.get("api_url", "https://api.openai.com/v1/chat/completions")
         self.engine = self.config.get("model", "gpt-3.5-turbo")  # "ada" cheaper and faster, "davinci" better
         self.stop_token = "<|im_end|>"
         self.key = self.config.get("key")  # TODO - raise error if missing
