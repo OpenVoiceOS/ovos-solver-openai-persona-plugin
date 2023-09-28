@@ -6,7 +6,7 @@ class OpenAIPersonaSolver(OpenAIChatCompletionsSolver):
 
     def __init__(self, config=None):
         # defaults to gpt-3.5-turbo
-        super().__init__(name="OpenAI ChatGPT Persona", config=config)
+        super().__init__(config=config)
         self.default_persona = config.get("persona") or "helpful, creative, clever, and very friendly."
 
     def get_chat_history(self, persona=None):

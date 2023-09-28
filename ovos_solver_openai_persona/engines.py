@@ -1,23 +1,23 @@
 import json
 
 import requests
-from ovos_plugin_manager.templates.solvers import AbstractSolver
+from ovos_plugin_manager.templates.solvers import QuestionSolver
 from ovos_utils.log import LOG
 
 
-class OpenAICompletionsSolver(AbstractSolver):
+class OpenAICompletionsSolver(QuestionSolver):
+    enable_tx = False
+    priority = 25
 
-    def __init__(self, config=None, name="OpenAI"):
-        super().__init__(name=name, priority=25, config=config,
-                         enable_cache=False, enable_tx=False)
+    def __init__(self, config=None):
+        super().__init__(config)
         self.api_url = f"{self.config.get('api_url', 'https://api.openai.com/v1')}/completions"
         self.engine = self.config.get("model", "text-davinci-002")  # "ada" cheaper and faster, "davinci" better
         self.stop_token = "<|im_end|>"
-        if not key:
+        self.key = self.config.get("key")
+        if not self.key:
             LOG.error("key not set in config")
             raise ValueError("key must be set")
-        else:
-            self.key = key
 
     # OpenAI API integration
     def _do_api_request(self, prompt):
@@ -55,20 +55,19 @@ class OpenAICompletionsSolver(AbstractSolver):
         return answer
 
 
-class OpenAIChatCompletionsSolver(AbstractSolver):
+class OpenAIChatCompletionsSolver(QuestionSolver):
+    enable_tx = False
+    priority = 25
 
-    def __init__(self, config=None, name="OpenAI Chat"):
-        super().__init__(name=name, priority=25, config=config,
-                         enable_cache=False, enable_tx=False)
+    def __init__(self, config=None):
+        super().__init__(config)
         self.api_url = f"{self.config.get('api_url', 'https://api.openai.com/v1')}/chat/completions"
         self.engine = self.config.get("model", "gpt-3.5-turbo")  # "ada" cheaper and faster, "davinci" better
         self.stop_token = "<|im_end|>"
-        key = self.config.get("key")
-        if not key:
+        self.key = self.config.get("key")
+        if not self.key:
             LOG.error("key not set in config")
             raise ValueError("key must be set")
-        else:
-            self.key = key
         self.memory = config.get("enable_memory", True)
         self.max_utts = config.get("memory_size", 15)
         self.qa_pairs = []  # tuple of q+a
@@ -138,49 +137,49 @@ class GPT35Turbo(OpenAIChatCompletionsSolver):
     def __init__(self, config=None):
         config = config or {}
         config["model"] = "gpt-3.5-turbo"
-        super().__init__(name="GPT 3.5 Turbo", config=config)
+        super().__init__(config=config)
 
 
 class AdaSolver(OpenAICompletionsSolver):
     def __init__(self, config=None):
         config = config or {}
         config["model"] = "ada"
-        super().__init__(name="Ada", config=config)
+        super().__init__(config=config)
 
 
 class BabbageSolver(OpenAICompletionsSolver):
     def __init__(self, config=None):
         config = config or {}
         config["model"] = "babbage"
-        super().__init__(name="Babbage", config=config)
+        super().__init__(config=config)
 
 
 class CurieSolver(OpenAICompletionsSolver):
     def __init__(self, config=None):
         config = config or {}
         config["model"] = "curie"
-        super().__init__(name="Curie", config=config)
+        super().__init__(config=config)
 
 
 class DavinciSolver(OpenAICompletionsSolver):
     def __init__(self, config=None):
         config = config or {}
         config["model"] = "davinci"
-        super().__init__(name="Davinci", config=config)
+        super().__init__(config=config)
 
 
 class Davinci2Solver(OpenAICompletionsSolver):
     def __init__(self, config=None):
         config = config or {}
         config["model"] = "text-davinci-02"
-        super().__init__(name="Davinci 2", config=config)
+        super().__init__(config=config)
 
 
 class Davinci3Solver(OpenAICompletionsSolver):
     def __init__(self, config=None):
         config = config or {}
         config["model"] = "text-davinci-03"
-        super().__init__(name="Davinci 3", config=config)
+        super().__init__(config=config)
 
 
 # Code completion
@@ -188,12 +187,12 @@ class DavinciCodeSolver(OpenAICompletionsSolver):
     def __init__(self, config=None):
         config = config or {}
         config["model"] = "code-davinci-002"
-        super().__init__(name="Code Davinci", config=config)
+        super().__init__(config=config)
 
 
 class CushmanCodeSolver(OpenAICompletionsSolver):
     def __init__(self, config=None):
         config = config or {}
         config["model"] = "code-cushman-001"
-        super().__init__(name="Code Cushman", config=config)
+        super().__init__(config=config)
 
