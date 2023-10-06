@@ -47,6 +47,8 @@ def get_version():
 
 
 PLUGIN_ENTRY_POINT = 'ovos-solver-openai-persona-plugin=ovos_solver_openai_persona:OpenAIPersonaSolver'
+DIALOG_PLUGIN_ENTRY_POINT = 'ovos-dialog-transformer-openai-plugin=ovos_solver_openai_persona.dialog_transformers:OpenAIDialogTransformer'
+
 
 setup(
     name='ovos-solver-openai-persona-plugin',
@@ -59,7 +61,10 @@ setup(
     packages=['ovos_solver_openai_persona'],
     zip_safe=True,
     keywords='ovos plugin utterance fallback query',
-    entry_points={'neon.plugin.solver': PLUGIN_ENTRY_POINT},
+    entry_points={
+        'neon.plugin.solver': PLUGIN_ENTRY_POINT,
+        "opm.transformer.dialog": DIALOG_PLUGIN_ENTRY_POINT
+    },
     install_requires=required("requirements.txt"),
     long_description=long_description,
     long_description_content_type='text/markdown'

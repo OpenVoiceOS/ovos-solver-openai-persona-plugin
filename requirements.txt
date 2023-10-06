@@ -1,2 +1,2 @@
 requests
-ovos-plugin-manager>=0.0.23a9
+ovos-plugin-manager>=0.0.23a10
