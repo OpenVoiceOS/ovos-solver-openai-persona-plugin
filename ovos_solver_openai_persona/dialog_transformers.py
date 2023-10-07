@@ -1,9 +1,12 @@
+from typing import Tuple
+
 from ovos_plugin_manager.templates.transformers import DialogTransformer
+
 from ovos_solver_openai_persona import OpenAIChatCompletionsSolver
 
 
-class OpenAITransformer(DialogTransformer):
-    def __init__(self, name="OpenAI", priority=10, config=None):
+class OpenAIDialogTransformer(DialogTransformer):
+    def __init__(self, name="ovos-dialog-transformer-openai", priority=10, config=None):
         super().__init__(name, priority, config)
         self.solver = OpenAIChatCompletionsSolver({
             "key": self.config.get("key"),
@@ -12,7 +15,7 @@ class OpenAITransformer(DialogTransformer):
             "initial_prompt": "your task is to rewrite text as if it was spoken by a different character"
         })
 
-    def transform(self, dialog: str, context: dict = None) -> str:
+    def transform(self, dialog: str, context: dict = None) -> Tuple[str, dict]:
         """
         Optionally transform passed dialog and/or return additional context
         :param dialog: str utterance to mutate before TTS
