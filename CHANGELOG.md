@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/HEAD)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a5...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a6...HEAD)
+
+**Fixed bugs:**
+
+- fix/typo in setup.py [\#3](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/pull/3) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.0a6](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/V0.0.0a6) (2023-10-07)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a5...V0.0.0a6)
 
 **Implemented enhancements:**
 
