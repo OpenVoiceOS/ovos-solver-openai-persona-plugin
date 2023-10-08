@@ -6,7 +6,7 @@ from ovos_solver_openai_persona import OpenAIChatCompletionsSolver
 
 
 class OpenAIDialogTransformer(DialogTransformer):
-    def __init__(self, name="ovos-dialog-transformer-openai", priority=10, config=None):
+    def __init__(self, name="ovos-dialog-transformer-openai-plugin", priority=10, config=None):
         super().__init__(name, priority, config)
         self.solver = OpenAIChatCompletionsSolver({
             "key": self.config.get("key"),
