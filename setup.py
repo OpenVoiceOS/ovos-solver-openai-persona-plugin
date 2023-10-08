@@ -47,7 +47,7 @@ def get_version():
 
 
 PLUGIN_ENTRY_POINT = 'ovos-solver-openai-persona-plugin=ovos_solver_openai_persona:OpenAIPersonaSolver'
-DIALOG_PLUGIN_ENTRY_POINT = 'ovos-solver-openai-persona-plugin=ovos_solver_openai_persona.dialog_transformers:OpenAIDialogTransformer'
+DIALOG_PLUGIN_ENTRY_POINT = 'ovos-dialog-transformer-openai-plugin=ovos_solver_openai_persona.dialog_transformers:OpenAIDialogTransformer'
 
 
 setup(
