@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/HEAD)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a6...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a7...HEAD)
+
+**Implemented enhancements:**
+
+- feat/streaming\_solver [\#4](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/pull/4) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.0a7](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/V0.0.0a7) (2023-10-08)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a6...V0.0.0a7)
 
 **Fixed bugs:**
 
