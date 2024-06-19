@@ -161,6 +161,8 @@ class OpenAIChatCompletionsSolver(QuestionSolver):
         for chunk in self._do_streaming_api_request(messages):
             answer += chunk
             if any(chunk.endswith(p) for p in [".", "!", "?", "\n", ":"]):
+                if chunk[-2].isdigit() and chunk[-1] == ".":
+                    continue # dont split numbers
                 if answer.strip():
                     yield answer
                 answer = ""
