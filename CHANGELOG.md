@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/HEAD)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a7...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a8...HEAD)
+
+**Fixed bugs:**
+
+- fix/dont split numbers [\#5](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/pull/5) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.0a8](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/V0.0.0a8) (2024-02-13)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a7...V0.0.0a8)
 
 **Implemented enhancements:**
 
