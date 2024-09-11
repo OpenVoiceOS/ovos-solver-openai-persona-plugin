@@ -1,4 +1,4 @@
-from ovos_solver_openai_persona_plugin.engines import OpenAICompletionsSolver
+from ovos_solver_openai_persona.engines import OpenAICompletionsSolver
 
 
 # Voice Assistant Promp Engineering
@@ -6,7 +6,7 @@ class OpenAIPersonaPromptSolver(OpenAICompletionsSolver):
     def __init__(self, config=None):
         config = config or {}
         config["model"] = "text-davinci-03"
-        super().__init__(name="OpenAI Persona", config=config)
+        super().__init__(config=config)
         self.memory = config.get("enable_memory", True)
         self.max_utts = config.get("memory_size", 15)
         self.qa_pairs = []  # tuple of q+a
