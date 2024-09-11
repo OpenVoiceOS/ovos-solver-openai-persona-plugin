@@ -1,68 +1,76 @@
 # Changelog
 
-## [Unreleased](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/HEAD)
+## [Unreleased](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/HEAD)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a9...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/V0.0.0a10...HEAD)
 
-**Fixed bugs:**
+**Merged pull requests:**
 
-- hotfix [\#6](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/pull/6) ([JarbasAl](https://github.com/JarbasAl))
+- feat:semver [\#7](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/pull/7) ([JarbasAl](https://github.com/JarbasAl))
 
-## [V0.0.0a9](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/V0.0.0a9) (2024-06-19)
+## [V0.0.0a10](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/V0.0.0a10) (2024-06-22)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a8...V0.0.0a9)
-
-**Fixed bugs:**
-
-- fix/dont split numbers [\#5](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/pull/5) ([JarbasAl](https://github.com/JarbasAl))
-
-## [V0.0.0a8](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/V0.0.0a8) (2024-02-13)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a7...V0.0.0a8)
-
-**Implemented enhancements:**
-
-- feat/streaming\_solver [\#4](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/pull/4) ([JarbasAl](https://github.com/JarbasAl))
-
-## [V0.0.0a7](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/V0.0.0a7) (2023-10-08)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a6...V0.0.0a7)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/V0.0.0a9...V0.0.0a10)
 
 **Fixed bugs:**
 
-- fix/typo in setup.py [\#3](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/pull/3) ([JarbasAl](https://github.com/JarbasAl))
+- hotfix [\#6](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/pull/6) ([JarbasAl](https://github.com/JarbasAl))
 
-## [V0.0.0a6](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/V0.0.0a6) (2023-10-07)
+## [V0.0.0a9](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/V0.0.0a9) (2024-06-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a5...V0.0.0a6)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/V0.0.0a8...V0.0.0a9)
 
-**Implemented enhancements:**
+**Fixed bugs:**
 
-- feat/dialog\_transformer [\#2](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/pull/2) ([JarbasAl](https://github.com/JarbasAl))
+- fix/dont split numbers [\#5](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/pull/5) ([JarbasAl](https://github.com/JarbasAl))
 
-## [V0.0.0a5](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/V0.0.0a5) (2023-09-28)
+## [V0.0.0a8](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/V0.0.0a8) (2024-02-13)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a4...V0.0.0a5)
-
-## [V0.0.0a4](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/V0.0.0a4) (2023-09-24)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a3...V0.0.0a4)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/V0.0.0a7...V0.0.0a8)
 
 **Implemented enhancements:**
 
-- Feat/config url [\#1](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/pull/1) ([builderjer](https://github.com/builderjer))
+- feat/streaming\_solver [\#4](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/pull/4) ([JarbasAl](https://github.com/JarbasAl))
 
-## [V0.0.0a3](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/V0.0.0a3) (2023-04-13)
+## [V0.0.0a7](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/V0.0.0a7) (2023-10-08)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a2...V0.0.0a3)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/V0.0.0a6...V0.0.0a7)
 
-## [V0.0.0a2](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/V0.0.0a2) (2023-04-13)
+**Fixed bugs:**
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/V0.0.0a1...V0.0.0a2)
+- fix/typo in setup.py [\#3](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/pull/3) ([JarbasAl](https://github.com/JarbasAl))
 
-## [V0.0.0a1](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/tree/V0.0.0a1) (2023-03-20)
+## [V0.0.0a6](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/V0.0.0a6) (2023-10-07)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona/compare/8778c7bf0fbe4c52bf5631b5a4f43812f41d3eda...V0.0.0a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/V0.0.0a5...V0.0.0a6)
+
+**Implemented enhancements:**
+
+- feat/dialog\_transformer [\#2](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/pull/2) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.0a5](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/V0.0.0a5) (2023-09-28)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/V0.0.0a4...V0.0.0a5)
+
+## [V0.0.0a4](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/V0.0.0a4) (2023-09-24)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/V0.0.0a3...V0.0.0a4)
+
+**Implemented enhancements:**
+
+- Feat/config url [\#1](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/pull/1) ([builderjer](https://github.com/builderjer))
+
+## [V0.0.0a3](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/V0.0.0a3) (2023-04-13)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/V0.0.0a2...V0.0.0a3)
+
+## [V0.0.0a2](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/V0.0.0a2) (2023-04-13)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/V0.0.0a1...V0.0.0a2)
+
+## [V0.0.0a1](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/V0.0.0a1) (2023-03-20)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/8778c7bf0fbe4c52bf5631b5a4f43812f41d3eda...V0.0.0a1)
 
 
 
