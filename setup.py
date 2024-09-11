@@ -17,8 +17,9 @@ def required(requirements_file):
                 if pkg.strip() and not pkg.startswith("#")]
 
 
-with open("README.md", "r") as f:
+with open(os.path.join(BASEDIR, "README.md"), "r") as f:
     long_description = f.read()
+
 
 
 def get_version():
