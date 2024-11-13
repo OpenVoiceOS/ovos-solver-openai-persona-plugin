@@ -1,3 +1,5 @@
+from typing import Optional
+
 from ovos_solver_openai_persona.engines import OpenAICompletionsSolver
 
 
@@ -12,7 +14,10 @@ class OpenAIPersonaPromptSolver(OpenAICompletionsSolver):
         self.qa_pairs = []  # tuple of q+a
         self.current_q = None
         self.current_a = None
-        self.default_persona = config.get("persona") or "helpful, creative, clever, and very friendly."
+
+    @property
+    def default_persona(self) -> str:
+        return self.config.get("persona") or "helpful, creative, clever, and very friendly."
 
     def get_chat_history(self, persona=None):
         # TODO - intro question from skill settings
@@ -49,10 +54,21 @@ class OpenAIPersonaPromptSolver(OpenAICompletionsSolver):
         return prompt
 
     # officially exported Solver methods
-    def get_spoken_answer(self, query, context=None):
-        context = context or {}
-        persona = context.get("persona") or self.default_persona
-        prompt = self.get_prompt(query, persona)
+    def get_spoken_answer(self, query: str,
+                          lang: Optional[str] = None,
+                          units: Optional[str] = None) -> Optional[str]:
+        """
+        Obtain the spoken answer for a given query.
+
+        Args:
+            query (str): The query text.
+            lang (Optional[str]): Optional language code. Defaults to None.
+            units (Optional[str]): Optional units for the query. Defaults to None.
+
+        Returns:
+            str: The spoken answer as a text response.
+        """
+        prompt = self.get_prompt(query, self.default_persona)
         response = self._do_api_request(prompt)
         answer = response.split("Human: ")[0].split("AI: ")[0].strip()
         if not answer or not answer.strip("?") or not answer.strip("_"):
@@ -60,4 +76,3 @@ class OpenAIPersonaPromptSolver(OpenAICompletionsSolver):
         if self.memory:
             self.qa_pairs.append((query, answer))
         return answer
-
