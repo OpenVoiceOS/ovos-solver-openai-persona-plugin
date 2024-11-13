@@ -24,4 +24,4 @@ class OpenAIDialogTransformer(DialogTransformer):
         prompt = context.get("prompt") or self.config.get("rewrite_prompt")
         if not prompt:
             return dialog, context
-        return self.solver.get_spoken_answer(f"{prompt} : {dialog}"), context
+        return self.solver.get_spoken_answer(f"{prompt} : {dialog}", lang=context.get("lang")), context
