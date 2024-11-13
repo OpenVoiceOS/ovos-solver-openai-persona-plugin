@@ -1,3 +1,5 @@
+from typing import Optional
+
 from ovos_solver_openai_persona.engines import OpenAIChatCompletionsSolver
 
 
@@ -24,10 +26,21 @@ class OpenAIPersonaSolver(OpenAIChatCompletionsSolver):
         return messages
 
     # officially exported Solver methods
-    def get_spoken_answer(self, query, context=None):
-        context = context or {}
-        persona = context.get("persona") or self.default_persona
-        messages = self.get_prompt(query, persona)
+    def get_spoken_answer(self, query: str,
+                          lang: Optional[str] = None,
+                          units: Optional[str] = None) -> Optional[str]:
+        """
+        Obtain the spoken answer for a given query.
+
+        Args:
+            query (str): The query text.
+            lang (Optional[str]): Optional language code. Defaults to None.
+            units (Optional[str]): Optional units for the query. Defaults to None.
+
+        Returns:
+            str: The spoken answer as a text response.
+        """
+        messages = self.get_prompt(query, self.default_persona)
         response = self._do_api_request(messages)
         answer = response.strip()
         if not answer or not answer.strip("?") or not answer.strip("_"):
@@ -46,7 +59,6 @@ if __name__ == "__main__":
         #  Think of it like playing with toy building blocks that represent particles.
         #  Instead of rigid structures, these particles can be in different energy levels or "states." Quantum mechanics helps scientists understand and predict these states, making it crucial for many fields like chemistry, materials science, and engineering.
 
-
     # Quantum mechanics is a branch of physics that deals with the behavior of particles on a very small scale, such as atoms and subatomic particles. It explores the idea that particles can exist in multiple states at once and that their behavior is not predictable in the traditional sense.
-    print(bot.spoken_answer("Quem encontrou o caminho maritimo para o Brazil", {"lang": "pt-pt"}))
-    # Explorador português Pedro Álvares Cabral é creditado com a descoberta do Brasil em 1500
+    print(bot.spoken_answer("Quem encontrou o caminho maritimo para o Brazil", lang="pt-pt"))
+    # O português Pedro Álvares Cabral encontrou o caminho marítimo para o Brasil em 1500. Ele foi o responsável por descobrir o litoral brasileiro, embora Cristóvão Colombo tenha chegado à América do Sul em 1498, cinco anos antes. Cabral desembarcou na atual costa de Alagoas, no Nordeste do Brasil.
