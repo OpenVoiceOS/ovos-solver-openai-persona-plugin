@@ -47,6 +47,7 @@ def get_version():
     return version
 
 
+PERSONA_ENTRY_POINT = 'Remote Llama=ovos_solver_openai_persona:LLAMA_DEMO'
 PLUGIN_ENTRY_POINT = 'ovos-solver-openai-persona-plugin=ovos_solver_openai_persona:OpenAIPersonaSolver'
 DIALOG_PLUGIN_ENTRY_POINT = 'ovos-dialog-transformer-openai-plugin=ovos_solver_openai_persona.dialog_transformers:OpenAIDialogTransformer'
 
@@ -64,7 +65,8 @@ setup(
     keywords='ovos plugin utterance fallback query',
     entry_points={
         'neon.plugin.solver': PLUGIN_ENTRY_POINT,
-        "opm.transformer.dialog": DIALOG_PLUGIN_ENTRY_POINT
+        "opm.transformer.dialog": DIALOG_PLUGIN_ENTRY_POINT,
+        "opm.plugin.persona": PERSONA_ENTRY_POINT
     },
     install_requires=required("requirements.txt"),
     long_description=long_description,
