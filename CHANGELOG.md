@@ -1,16 +1,16 @@
 # Changelog
 
-## [1.0.0a1](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/1.0.0a1) (2024-11-13)
+## [1.1.0a1](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/1.1.0a1) (2024-11-13)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/V0.0.2...1.0.0a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/V1.0.0...1.1.0a1)
 
-**Breaking changes:**
+**Merged pull requests:**
 
-- fix:moderize\_signatures [\#10](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/pull/10) ([JarbasAl](https://github.com/JarbasAl))
+- feat:include demo persona [\#12](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/pull/12) ([JarbasAl](https://github.com/JarbasAl))
 
-## [V0.0.2](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/V0.0.2) (2024-09-11)
+## [V1.0.0](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/V1.0.0) (2024-11-13)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/0.0.2...V0.0.2)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/1.0.0...V1.0.0)
 
 
 

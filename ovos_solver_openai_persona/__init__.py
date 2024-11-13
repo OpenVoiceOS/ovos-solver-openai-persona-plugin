@@ -50,6 +50,19 @@ class OpenAIPersonaSolver(OpenAIChatCompletionsSolver):
         return answer
 
 
+# for ovos-persona
+LLAMA_DEMO = {
+  "name": "Remote LLama",
+  "solvers": [
+    "ovos-solver-openai-persona-plugin"
+  ],
+  "ovos-solver-openai-persona-plugin": {
+    "api_url": "https://llama.smartgic.io/v1",
+    "key": "sk-xxxx"
+  }
+}
+
+
 if __name__ == "__main__":
     bot = OpenAIPersonaSolver({"key": "sk-xxxx", "api_url": "https://llama.smartgic.io/v1"})
     for utt in bot.stream_utterances("describe quantum mechanics in simple terms"):
