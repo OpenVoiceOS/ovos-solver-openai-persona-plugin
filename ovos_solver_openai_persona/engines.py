@@ -1,4 +1,5 @@
 import json
+from typing import Optional, Iterable
 
 import requests
 from ovos_plugin_manager.templates.solvers import QuestionSolver
@@ -47,7 +48,20 @@ class OpenAICompletionsSolver(QuestionSolver):
         return response["choices"][0]["text"]
 
     # officially exported Solver methods
-    def get_spoken_answer(self, query, context=None):
+    def get_spoken_answer(self, query: str,
+                          lang: Optional[str] = None,
+                          units: Optional[str] = None) -> Optional[str]:
+        """
+        Obtain the spoken answer for a given query.
+
+        Args:
+            query (str): The query text.
+            lang (Optional[str]): Optional language code. Defaults to None.
+            units (Optional[str]): Optional units for the query. Defaults to None.
+
+        Returns:
+            str: The spoken answer as a text response.
+        """
         response = self._do_api_request(query)
         answer = response.strip()
         if not answer or not answer.strip("?") or not answer.strip("_"):
@@ -154,20 +168,46 @@ class OpenAIChatCompletionsSolver(QuestionSolver):
         messages.append({"role": "user", "content": utt})
         return messages
 
-    # officially exported Solver methods
-    def stream_utterances(self, query):
+    # asbtract Solver methods
+    def stream_utterances(self, query: str,
+                          lang: Optional[str] = None,
+                          units: Optional[str] = None) -> Iterable[str]:
+        """
+        Stream utterances for the given query as they become available.
+
+        Args:
+            query (str): The query text.
+            lang (Optional[str]): Optional language code. Defaults to None.
+            units (Optional[str]): Optional units for the query. Defaults to None.
+
+        Returns:
+            Iterable[str]: An iterable of utterances.
+        """
         messages = self.get_prompt(query)
         answer = ""
         for chunk in self._do_streaming_api_request(messages):
             answer += chunk
             if any(chunk.endswith(p) for p in [".", "!", "?", "\n", ":"]):
                 if len(chunk) >= 2 and chunk[-2].isdigit() and chunk[-1] == ".":
-                    continue # dont split numbers
+                    continue  # dont split numbers
                 if answer.strip():
                     yield answer
                 answer = ""
 
-    def get_spoken_answer(self, query, context=None):
+    def get_spoken_answer(self, query: str,
+                          lang: Optional[str] = None,
+                          units: Optional[str] = None) -> Optional[str]:
+        """
+        Obtain the spoken answer for a given query.
+
+        Args:
+            query (str): The query text.
+            lang (Optional[str]): Optional language code. Defaults to None.
+            units (Optional[str]): Optional units for the query. Defaults to None.
+
+        Returns:
+            str: The spoken answer as a text response.
+        """
         messages = self.get_prompt(query)
         response = self._do_api_request(messages)
         answer = response.strip()
@@ -176,69 +216,3 @@ class OpenAIChatCompletionsSolver(QuestionSolver):
         if self.memory:
             self.qa_pairs.append((query, answer))
         return answer
-
-
-# Base models
-class GPT35Turbo(OpenAIChatCompletionsSolver):
-    def __init__(self, config=None):
-        config = config or {}
-        config["model"] = "gpt-3.5-turbo"
-        super().__init__(config=config)
-
-
-class AdaSolver(OpenAICompletionsSolver):
-    def __init__(self, config=None):
-        config = config or {}
-        config["model"] = "ada"
-        super().__init__(config=config)
-
-
-class BabbageSolver(OpenAICompletionsSolver):
-    def __init__(self, config=None):
-        config = config or {}
-        config["model"] = "babbage"
-        super().__init__(config=config)
-
-
-class CurieSolver(OpenAICompletionsSolver):
-    def __init__(self, config=None):
-        config = config or {}
-        config["model"] = "curie"
-        super().__init__(config=config)
-
-
-class DavinciSolver(OpenAICompletionsSolver):
-    def __init__(self, config=None):
-        config = config or {}
-        config["model"] = "davinci"
-        super().__init__(config=config)
-
-
-class Davinci2Solver(OpenAICompletionsSolver):
-    def __init__(self, config=None):
-        config = config or {}
-        config["model"] = "text-davinci-02"
-        super().__init__(config=config)
-
-
-class Davinci3Solver(OpenAICompletionsSolver):
-    def __init__(self, config=None):
-        config = config or {}
-        config["model"] = "text-davinci-03"
-        super().__init__(config=config)
-
-
-# Code completion
-class DavinciCodeSolver(OpenAICompletionsSolver):
-    def __init__(self, config=None):
-        config = config or {}
-        config["model"] = "code-davinci-002"
-        super().__init__(config=config)
-
-
-class CushmanCodeSolver(OpenAICompletionsSolver):
-    def __init__(self, config=None):
-        config = config or {}
-        config["model"] = "code-cushman-001"
-        super().__init__(config=config)
-
