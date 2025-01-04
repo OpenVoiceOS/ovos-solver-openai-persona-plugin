@@ -146,6 +146,9 @@ class OpenAIChatCompletionsSolver(QuestionSolver):
             if chunk:
                 chunk = chunk.decode("utf-8")
                 chunk = json.loads(chunk.split("data: ", 1)[-1])
+                if chunk["error"] and chunk["error"]["message"]:
+                    LOG.error("API returned an error: " + chunk["error"]["message"])
+                    break
                 if chunk["choices"][0].get("finish_reason"):
                     break
                 if "content" not in chunk["choices"][0]["delta"]:
