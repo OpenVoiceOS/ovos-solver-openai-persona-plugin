@@ -64,9 +64,11 @@ LLAMA_DEMO = {
 
 
 if __name__ == "__main__":
-    bot = OpenAIPersonaSolver({"key": "sk-xxxx", "api_url": "https://llama.smartgic.io/v1"})
-    for utt in bot.stream_utterances("describe quantum mechanics in simple terms"):
-        print(utt)
+    bot = OpenAIPersonaSolver({"key": "sk-xxxx",
+                               "api_url": "https://ollama.uoi.io/v1",
+                               "model": "hdnh2006/salamandra-7b-instruct"})
+    #for utt in bot.stream_utterances("describe quantum mechanics in simple terms"):
+    #    print(utt)
         #  Quantum mechanics is a branch of physics that studies the behavior of atoms and particles at the smallest scales.
         #  It describes how these particles interact with each other, move, and change energy levels.
         #  Think of it like playing with toy building blocks that represent particles.
