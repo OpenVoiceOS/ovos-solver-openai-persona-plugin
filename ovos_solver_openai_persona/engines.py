@@ -72,6 +72,11 @@ class OpenAICompletionsSolver(QuestionSolver):
         return answer
 
 
+def post_process_sentence(text: str) -> str:
+    text = text.replace("*", "")  # TTS often literally reads "asterisk"
+    return text.strip()
+
+
 class OpenAIChatCompletionsSolver(ChatMessageSolver):
     enable_tx = False
     priority = 25
@@ -186,7 +191,7 @@ class OpenAIChatCompletionsSolver(ChatMessageSolver):
             Optional[str]: The generated response or None if no response could be generated.
         """
         response = self._do_api_request(messages)
-        answer = response.strip()
+        answer = post_process_sentence(response)
         if not answer or not answer.strip("?") or not answer.strip("_"):
             return None
         if self.memory:
@@ -222,7 +227,7 @@ class OpenAIChatCompletionsSolver(ChatMessageSolver):
                     if self.memory:
                         full_ans = f"{self.qa_pairs[-1][-1]}\n{answer}".strip()
                         self.qa_pairs[-1] = (query, full_ans)
-                    yield answer
+                    yield post_process_sentence(answer)
                 answer = ""
 
     def stream_utterances(self, query: str,
