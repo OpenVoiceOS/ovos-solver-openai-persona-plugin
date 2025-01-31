@@ -1,16 +1,16 @@
 # Changelog
 
-## [1.1.1a1](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/1.1.1a1) (2025-01-31)
+## [1.1.2a1](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/1.1.2a1) (2025-01-31)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/V1.1.0...1.1.1a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/V1.1.1...1.1.2a1)
 
 **Merged pull requests:**
 
-- update base class to use the new ChatMessageSolver api [\#15](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/pull/15) ([JarbasAl](https://github.com/JarbasAl))
+- fix:text post processing [\#17](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/pull/17) ([JarbasAl](https://github.com/JarbasAl))
 
-## [V1.1.0](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/V1.1.0) (2024-11-13)
+## [V1.1.1](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/V1.1.1) (2025-01-31)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/1.1.0...V1.1.0)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/1.1.1...V1.1.1)
 
 
 
