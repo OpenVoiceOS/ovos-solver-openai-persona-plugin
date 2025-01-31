@@ -1,10 +1,13 @@
 import json
-from typing import Optional, Iterable
+from typing import Optional, Iterable, List, Dict
 
 import requests
 from ovos_plugin_manager.templates.solvers import QuestionSolver
 from ovos_utils.log import LOG
 
+from ovos_plugin_manager.templates.solvers import ChatMessageSolver
+
+MessageList = List[Dict[str, str]]  # for typing
 
 class OpenAICompletionsSolver(QuestionSolver):
     enable_tx = False
@@ -69,14 +72,14 @@ class OpenAICompletionsSolver(QuestionSolver):
         return answer
 
 
-class OpenAIChatCompletionsSolver(QuestionSolver):
+class OpenAIChatCompletionsSolver(ChatMessageSolver):
     enable_tx = False
     priority = 25
 
     def __init__(self, config=None):
         super().__init__(config)
         self.api_url = f"{self.config.get('api_url', 'https://api.openai.com/v1')}/chat/completions"
-        self.engine = self.config.get("model", "gpt-3.5-turbo")  # "ada" cheaper and faster, "davinci" better
+        self.engine = self.config.get("model", "gpt-4o-mini")  # "ada" cheaper and faster, "davinci" better
         self.stop_token = "<|im_end|>"
         self.key = self.config.get("key")
         if not self.key:
@@ -154,7 +157,7 @@ class OpenAIChatCompletionsSolver(QuestionSolver):
 
     def get_chat_history(self, initial_prompt=None):
         qa = self.qa_pairs[-1 * self.max_utts:]
-        initial_prompt = self.initial_prompt or "You are a helpful assistant."
+        initial_prompt = initial_prompt or self.initial_prompt or "You are a helpful assistant."
         messages = [
             {"role": "system", "content": initial_prompt},
         ]
@@ -163,12 +166,65 @@ class OpenAIChatCompletionsSolver(QuestionSolver):
             messages.append({"role": "assistant", "content": a})
         return messages
 
-    def get_prompt(self, utt, initial_prompt=None):
+    def get_messages(self, utt, initial_prompt=None) -> MessageList:
         messages = self.get_chat_history(initial_prompt)
         messages.append({"role": "user", "content": utt})
         return messages
 
     # asbtract Solver methods
+    def continue_chat(self, messages: MessageList,
+                      lang: Optional[str],
+                      units: Optional[str] = None) -> Optional[str]:
+        """Generate a response based on the chat history.
+
+        Args:
+            messages (List[Dict[str, str]]): List of chat messages, each containing 'role' and 'content'.
+            lang (Optional[str]): The language code for the response. If None, will be auto-detected.
+            units (Optional[str]): Optional unit system for numerical values.
+
+        Returns:
+            Optional[str]: The generated response or None if no response could be generated.
+        """
+        response = self._do_api_request(messages)
+        answer = response.strip()
+        if not answer or not answer.strip("?") or not answer.strip("_"):
+            return None
+        if self.memory:
+            query = messages[-1]["content"]
+            self.qa_pairs.append((query, answer))
+        return answer
+
+    def stream_chat_utterances(self, messages: List[Dict[str, str]],
+                               lang: Optional[str] = None,
+                               units: Optional[str] = None) -> Iterable[str]:
+        """
+        Stream utterances for the given chat history as they become available.
+
+        Args:
+            messages: The chat messages.
+            lang (Optional[str]): Optional language code. Defaults to None.
+            units (Optional[str]): Optional units for the query. Defaults to None.
+
+        Returns:
+            Iterable[str]: An iterable of utterances.
+        """
+        answer = ""
+        query = messages[-1]["content"]
+        if self.memory:
+            self.qa_pairs.append((query, answer))
+
+        for chunk in self._do_streaming_api_request(messages):
+            answer += chunk
+            if any(chunk.endswith(p) for p in [".", "!", "?", "\n", ":"]):
+                if len(chunk) >= 2 and chunk[-2].isdigit() and chunk[-1] == ".":
+                    continue  # dont split numbers
+                if answer.strip():
+                    if self.memory:
+                        full_ans = f"{self.qa_pairs[-1][-1]}\n{answer}".strip()
+                        self.qa_pairs[-1] = (query, full_ans)
+                    yield answer
+                answer = ""
+
     def stream_utterances(self, query: str,
                           lang: Optional[str] = None,
                           units: Optional[str] = None) -> Iterable[str]:
@@ -183,16 +239,8 @@ class OpenAIChatCompletionsSolver(QuestionSolver):
         Returns:
             Iterable[str]: An iterable of utterances.
         """
-        messages = self.get_prompt(query)
-        answer = ""
-        for chunk in self._do_streaming_api_request(messages):
-            answer += chunk
-            if any(chunk.endswith(p) for p in [".", "!", "?", "\n", ":"]):
-                if len(chunk) >= 2 and chunk[-2].isdigit() and chunk[-1] == ".":
-                    continue  # dont split numbers
-                if answer.strip():
-                    yield answer
-                answer = ""
+        messages = self.get_messages(query)
+        yield from self.stream_chat_utterances(messages, lang, units)
 
     def get_spoken_answer(self, query: str,
                           lang: Optional[str] = None,
@@ -208,11 +256,7 @@ class OpenAIChatCompletionsSolver(QuestionSolver):
         Returns:
             str: The spoken answer as a text response.
         """
-        messages = self.get_prompt(query)
-        response = self._do_api_request(messages)
-        answer = response.strip()
-        if not answer or not answer.strip("?") or not answer.strip("_"):
-            return None
-        if self.memory:
-            self.qa_pairs.append((query, answer))
-        return answer
+        messages = self.get_messages(query)
+        # just for api compat since it's a subclass, shouldn't be directly used
+        return self.continue_chat(messages=messages, lang=lang, units=units)
+

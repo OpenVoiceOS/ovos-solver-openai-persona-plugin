@@ -12,18 +12,11 @@ class OpenAIPersonaSolver(OpenAIChatCompletionsSolver):
         self.default_persona = config.get("persona") or "helpful, creative, clever, and very friendly."
 
     def get_chat_history(self, persona=None):
-        qa = self.qa_pairs[-1 * self.max_utts:]
         persona = persona or self.default_persona
         initial_prompt = f"You are a helpful assistant. " \
                          f"You give short and factual answers. " \
                          f"You are {persona}"
-        messages = [
-            {"role": "system", "content": initial_prompt},
-        ]
-        for q, a in qa:
-            messages.append({"role": "user", "content": q})
-            messages.append({"role": "assistant", "content": a})
-        return messages
+        return super().get_chat_history(initial_prompt)
 
     # officially exported Solver methods
     def get_spoken_answer(self, query: str,
@@ -40,13 +33,9 @@ class OpenAIPersonaSolver(OpenAIChatCompletionsSolver):
         Returns:
             str: The spoken answer as a text response.
         """
-        messages = self.get_prompt(query, self.default_persona)
-        response = self._do_api_request(messages)
-        answer = response.strip()
+        answer = super().get_spoken_answer(query, lang, units)
         if not answer or not answer.strip("?") or not answer.strip("_"):
             return None
-        if self.memory:
-            self.qa_pairs.append((query, answer))
         return answer
 
 
@@ -64,14 +53,14 @@ LLAMA_DEMO = {
 
 
 if __name__ == "__main__":
-    bot = OpenAIPersonaSolver({"key": "sk-xxxx", "api_url": "https://llama.smartgic.io/v1"})
-    for utt in bot.stream_utterances("describe quantum mechanics in simple terms"):
-        print(utt)
+    bot = OpenAIPersonaSolver(LLAMA_DEMO["ovos-solver-openai-persona-plugin"])
+    #for utt in bot.stream_utterances("describe quantum mechanics in simple terms"):
+    #    print(utt)
         #  Quantum mechanics is a branch of physics that studies the behavior of atoms and particles at the smallest scales.
         #  It describes how these particles interact with each other, move, and change energy levels.
         #  Think of it like playing with toy building blocks that represent particles.
         #  Instead of rigid structures, these particles can be in different energy levels or "states." Quantum mechanics helps scientists understand and predict these states, making it crucial for many fields like chemistry, materials science, and engineering.
 
     # Quantum mechanics is a branch of physics that deals with the behavior of particles on a very small scale, such as atoms and subatomic particles. It explores the idea that particles can exist in multiple states at once and that their behavior is not predictable in the traditional sense.
-    print(bot.spoken_answer("Quem encontrou o caminho maritimo para o Brazil", lang="pt-pt"))
+    print(bot.spoken_answer("what is the definition of computer", lang="en-US"))
     # O português Pedro Álvares Cabral encontrou o caminho marítimo para o Brasil em 1500. Ele foi o responsável por descobrir o litoral brasileiro, embora Cristóvão Colombo tenha chegado à América do Sul em 1498, cinco anos antes. Cabral desembarcou na atual costa de Alagoas, no Nordeste do Brasil.
