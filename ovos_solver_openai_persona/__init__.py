@@ -12,18 +12,11 @@ class OpenAIPersonaSolver(OpenAIChatCompletionsSolver):
         self.default_persona = config.get("persona") or "helpful, creative, clever, and very friendly."
 
     def get_chat_history(self, persona=None):
-        qa = self.qa_pairs[-1 * self.max_utts:]
         persona = persona or self.default_persona
         initial_prompt = f"You are a helpful assistant. " \
                          f"You give short and factual answers. " \
                          f"You are {persona}"
-        messages = [
-            {"role": "system", "content": initial_prompt},
-        ]
-        for q, a in qa:
-            messages.append({"role": "user", "content": q})
-            messages.append({"role": "assistant", "content": a})
-        return messages
+        return super().get_chat_history(initial_prompt)
 
     # officially exported Solver methods
     def get_spoken_answer(self, query: str,
@@ -40,13 +33,9 @@ class OpenAIPersonaSolver(OpenAIChatCompletionsSolver):
         Returns:
             str: The spoken answer as a text response.
         """
-        messages = self.get_prompt(query, self.default_persona)
-        response = self._do_api_request(messages)
-        answer = response.strip() if response else ""
+        answer = super().get_spoken_answer(query, lang, units)
         if not answer or not answer.strip("?") or not answer.strip("_"):
             return None
-        if self.memory:
-            self.qa_pairs.append((query, answer))
         return answer
 
 
@@ -64,9 +53,7 @@ LLAMA_DEMO = {
 
 
 if __name__ == "__main__":
-    bot = OpenAIPersonaSolver({"key": "sk-xxxx",
-                               "model": 'mixtral-8x7b',
-                               "api_url": "http://10.42.0.109:8401"})
+    bot = OpenAIPersonaSolver(LLAMA_DEMO["ovos-solver-openai-persona-plugin"])
     #for utt in bot.stream_utterances("describe quantum mechanics in simple terms"):
     #    print(utt)
         #  Quantum mechanics is a branch of physics that studies the behavior of atoms and particles at the smallest scales.

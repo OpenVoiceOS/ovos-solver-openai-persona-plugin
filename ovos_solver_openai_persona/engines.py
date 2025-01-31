@@ -157,7 +157,7 @@ class OpenAIChatCompletionsSolver(ChatMessageSolver):
 
     def get_chat_history(self, initial_prompt=None):
         qa = self.qa_pairs[-1 * self.max_utts:]
-        initial_prompt = self.initial_prompt or "You are a helpful assistant."
+        initial_prompt = initial_prompt or self.initial_prompt or "You are a helpful assistant."
         messages = [
             {"role": "system", "content": initial_prompt},
         ]
