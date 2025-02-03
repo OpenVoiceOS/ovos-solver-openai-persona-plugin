@@ -93,7 +93,7 @@ class OpenAIChatCompletionsSolver(ChatMessageSolver):
         self.memory = config.get("enable_memory", True)
         self.max_utts = config.get("memory_size", 15)
         self.qa_pairs = []  # tuple of q+a
-        self.initial_prompt = config.get("initial_prompt", "You are a helpful assistant.")
+        self.system_prompt = config.get("system_prompt", "You are a helpful assistant.")
 
     # OpenAI API integration
     def _do_api_request(self, messages):
@@ -163,19 +163,19 @@ class OpenAIChatCompletionsSolver(ChatMessageSolver):
                     continue
                 yield chunk["choices"][0]["delta"]["content"]
 
-    def get_chat_history(self, initial_prompt=None):
+    def get_chat_history(self, system_prompt=None):
         qa = self.qa_pairs[-1 * self.max_utts:]
-        initial_prompt = initial_prompt or self.initial_prompt or "You are a helpful assistant."
+        system_prompt = system_prompt or self.system_prompt or "You are a helpful assistant."
         messages = [
-            {"role": "system", "content": initial_prompt},
+            {"role": "system", "content": system_prompt},
         ]
         for q, a in qa:
             messages.append({"role": "user", "content": q})
             messages.append({"role": "assistant", "content": a})
         return messages
 
-    def get_messages(self, utt, initial_prompt=None) -> MessageList:
-        messages = self.get_chat_history(initial_prompt)
+    def get_messages(self, utt, system_prompt=None) -> MessageList:
+        messages = self.get_chat_history(system_prompt)
         messages.append({"role": "user", "content": utt})
         return messages
 
@@ -267,4 +267,3 @@ class OpenAIChatCompletionsSolver(ChatMessageSolver):
         messages = self.get_messages(query)
         # just for api compat since it's a subclass, shouldn't be directly used
         return self.continue_chat(messages=messages, lang=lang, units=units)
-
