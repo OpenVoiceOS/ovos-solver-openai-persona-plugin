@@ -50,6 +50,7 @@ def get_version():
 PERSONA_ENTRY_POINT = 'Remote Llama=ovos_solver_openai_persona:LLAMA_DEMO'
 PLUGIN_ENTRY_POINT = 'ovos-solver-openai-persona-plugin=ovos_solver_openai_persona:OpenAIPersonaSolver'
 DIALOG_PLUGIN_ENTRY_POINT = 'ovos-dialog-transformer-openai-plugin=ovos_solver_openai_persona.dialog_transformers:OpenAIDialogTransformer'
+SUMMARIZER_ENTRY_POINT = 'ovos-summarizer-openai-plugin=ovos_solver_openai_persona.summarizer:OpenAISummarizer'
 
 
 setup(
@@ -66,6 +67,7 @@ setup(
     entry_points={
         'neon.plugin.solver': PLUGIN_ENTRY_POINT,
         "opm.transformer.dialog": DIALOG_PLUGIN_ENTRY_POINT,
+        'opm.solver.summarization': SUMMARIZER_ENTRY_POINT,
         "opm.plugin.persona": PERSONA_ENTRY_POINT
     },
     install_requires=required("requirements.txt"),
