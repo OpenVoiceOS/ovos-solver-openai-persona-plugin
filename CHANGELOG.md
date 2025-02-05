@@ -1,16 +1,17 @@
 # Changelog
 
-## [1.1.2a1](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/1.1.2a1) (2025-01-31)
+## [1.2.0a1](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/1.2.0a1) (2025-02-05)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/V1.1.1...1.1.2a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/V1.1.2...1.2.0a1)
 
 **Merged pull requests:**
 
-- fix:text post processing [\#17](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/pull/17) ([JarbasAl](https://github.com/JarbasAl))
+- feat: summarizer plugin [\#20](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/pull/20) ([JarbasAl](https://github.com/JarbasAl))
+- Log better error messages for streaming reply from ollama /v1/chat/completions API [\#14](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/pull/14) ([devvmh](https://github.com/devvmh))
 
-## [V1.1.1](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/V1.1.1) (2025-01-31)
+## [V1.1.2](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/tree/V1.1.2) (2025-01-31)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/1.1.1...V1.1.1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-solver-openai-persona-plugin/compare/1.1.2...V1.1.2)
 
 
 
