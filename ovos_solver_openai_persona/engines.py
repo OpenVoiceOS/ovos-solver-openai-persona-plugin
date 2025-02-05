@@ -2,19 +2,27 @@ import json
 from typing import Optional, Iterable, List, Dict
 
 import requests
-from ovos_plugin_manager.templates.solvers import QuestionSolver
-from ovos_utils.log import LOG
 
 from ovos_plugin_manager.templates.solvers import ChatMessageSolver
+from ovos_plugin_manager.templates.solvers import QuestionSolver
+from ovos_plugin_manager.templates.language import LanguageTranslator, LanguageDetector
+from ovos_utils.log import LOG
 
 MessageList = List[Dict[str, str]]  # for typing
 
-class OpenAICompletionsSolver(QuestionSolver):
-    enable_tx = False
-    priority = 25
 
-    def __init__(self, config=None):
-        super().__init__(config)
+class OpenAICompletionsSolver(QuestionSolver):
+    def __init__(self, config=None,
+                 translator: Optional[LanguageTranslator] = None,
+                 detector: Optional[LanguageDetector] = None,
+                 priority: int = 50,
+                 enable_tx: bool = False,
+                 enable_cache: bool = False,
+                 internal_lang: Optional[str] = None):
+        super().__init__(config=config, translator=translator,
+                         detector=detector, priority=priority,
+                         enable_tx=enable_tx, enable_cache=enable_cache,
+                         internal_lang=internal_lang)
         self.api_url = f"{self.config.get('api_url', 'https://api.openai.com/v1')}/completions"
         self.engine = self.config.get("model", "text-davinci-002")  # "ada" cheaper and faster, "davinci" better
         self.stop_token = "<|im_end|>"
@@ -78,11 +86,17 @@ def post_process_sentence(text: str) -> str:
 
 
 class OpenAIChatCompletionsSolver(ChatMessageSolver):
-    enable_tx = False
-    priority = 25
-
-    def __init__(self, config=None):
-        super().__init__(config)
+    def __init__(self, config=None,
+                 translator: Optional[LanguageTranslator] = None,
+                 detector: Optional[LanguageDetector] = None,
+                 priority: int = 25,
+                 enable_tx: bool = False,
+                 enable_cache: bool = False,
+                 internal_lang: Optional[str] = None):
+        super().__init__(config=config, translator=translator,
+                         detector=detector, priority=priority,
+                         enable_tx=enable_tx, enable_cache=enable_cache,
+                         internal_lang=internal_lang)
         self.api_url = f"{self.config.get('api_url', 'https://api.openai.com/v1')}/chat/completions"
         self.engine = self.config.get("model", "gpt-4o-mini")  # "ada" cheaper and faster, "davinci" better
         self.stop_token = "<|im_end|>"
@@ -91,7 +105,7 @@ class OpenAIChatCompletionsSolver(ChatMessageSolver):
             LOG.error("key not set in config")
             raise ValueError("key must be set")
         self.memory = config.get("enable_memory", True)
-        self.max_utts = config.get("memory_size", 15)
+        self.max_utts = config.get("memory_size", 5)
         self.qa_pairs = []  # tuple of q+a
         self.initial_prompt = config.get("initial_prompt", "You are a helpful assistant.")
 
@@ -267,4 +281,3 @@ class OpenAIChatCompletionsSolver(ChatMessageSolver):
         messages = self.get_messages(query)
         # just for api compat since it's a subclass, shouldn't be directly used
         return self.continue_chat(messages=messages, lang=lang, units=units)
-
