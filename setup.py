@@ -48,13 +48,13 @@ def get_version():
 
 
 PERSONA_ENTRY_POINT = 'Remote Llama=ovos_solver_openai_persona:LLAMA_DEMO'
-PLUGIN_ENTRY_POINT = 'ovos-solver-openai-persona-plugin=ovos_solver_openai_persona:OpenAIPersonaSolver'
+PLUGIN_ENTRY_POINT = 'ovos-solver-openai-plugin=ovos_solver_openai_persona:OpenAIPersonaSolver'
 DIALOG_PLUGIN_ENTRY_POINT = 'ovos-dialog-transformer-openai-plugin=ovos_solver_openai_persona.dialog_transformers:OpenAIDialogTransformer'
 SUMMARIZER_ENTRY_POINT = 'ovos-summarizer-openai-plugin=ovos_solver_openai_persona.summarizer:OpenAISummarizer'
 
 
 setup(
-    name='ovos-solver-openai-persona-plugin',
+    name='ovos-openai-plugin',
     version=get_version(),
     description='A question solver plugin for ovos',
     url='https://github.com/OpenVoiceOS/ovos-solver-plugin-openai-persona',
