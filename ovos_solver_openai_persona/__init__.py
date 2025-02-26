@@ -43,9 +43,9 @@ class OpenAIPersonaSolver(OpenAIChatCompletionsSolver):
 LLAMA_DEMO = {
   "name": "Remote LLama",
   "solvers": [
-    "ovos-solver-openai-persona-plugin"
+    "ovos-solver-openai-plugin"
   ],
-  "ovos-solver-openai-persona-plugin": {
+  "ovos-solver-openai-plugin": {
     "api_url": "https://llama.smartgic.io/v1",
     "key": "sk-xxxx"
   }
@@ -53,7 +53,7 @@ LLAMA_DEMO = {
 
 
 if __name__ == "__main__":
-    bot = OpenAIPersonaSolver(LLAMA_DEMO["ovos-solver-openai-persona-plugin"])
+    bot = OpenAIPersonaSolver(LLAMA_DEMO["ovos-solver-openai-plugin"])
     #for utt in bot.stream_utterances("describe quantum mechanics in simple terms"):
     #    print(utt)
         #  Quantum mechanics is a branch of physics that studies the behavior of atoms and particles at the smallest scales.

@@ -8,7 +8,7 @@ on:
   workflow_dispatch:  # Allows manual triggering
 
 env:
-  TARGET_PACKAGE: "ovos-solver-openai-persona-plugin"  # Set the package to track here
+  TARGET_PACKAGE: "ovos-openai-plugin"  # Set the package to track here
 
 jobs:
   check-dependencies:

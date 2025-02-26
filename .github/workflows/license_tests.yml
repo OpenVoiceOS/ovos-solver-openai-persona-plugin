@@ -37,7 +37,7 @@ jobs:
           requirements: 'requirements-all.txt'
           fail: 'Copyleft,Other,Error'
           fails-only: true
-          exclude: '^(ovos-solver-openai-persona-plugin).*'
+          exclude: '^(ovos-openai-plugin).*'
           exclude-license: '^(Mozilla).*$'
       - name: Print report
         if: ${{ always() }}
