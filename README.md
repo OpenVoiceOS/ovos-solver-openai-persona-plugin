@@ -16,7 +16,7 @@ To create your own persona using a OpenAI compatible server create a .json in `~
 {
   "name": "My Local LLM",
   "solvers": [
-    "ovos-openai-plugin"
+    "ovos-solver-openai-plugin"
   ],
   "ovos-openai-plugin": {
     "api_url": "https://llama.smartgic.io/v1",
@@ -26,9 +26,9 @@ To create your own persona using a OpenAI compatible server create a .json in `~
 }
 ```
 
-This plugins provides a default "Remote LLama" demo persona, it points to a public server hosted by @goldyfruit
+Then say "Chat with {name_from_json}" to enable it, more details can be found in [ovos-persona](https://github.com/OpenVoiceOS/ovos-persona) README
 
-You can just say "Chat with Remote LLama" to enable it, more details can be found in [ovos-persona](https://github.com/OpenVoiceOS/ovos-persona) README
+This plugins also provides a default "Remote LLama" demo persona, it points to a public server hosted by @goldyfruit.
 
 ## Dialog Transformer
 
